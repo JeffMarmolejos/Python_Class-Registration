@@ -1,0 +1,53 @@
+def list_courses(id, course_list, roster_list):
+    numClasses = 0
+    print("Courses registered: ")
+    for roster in roster_list:
+        for ident in roster:
+            if ident == id:
+                courseIndex = roster_list.index(roster)
+                numClasses += 1
+                for course in course_list:
+                    if course_list.index(course) == courseIndex:
+                        print(course)
+    print("Total number: ", numClasses)
+
+
+def add_course(id, course_list, roster_list, max_size_list):
+    print(id)
+    addCourse = input("Enter course you want to add: ")
+    if addCourse not in course_list:
+        print("Course not found.")
+    else:
+        addIndex = course_list.index(addCourse)
+        for roster in roster_list:
+            if roster_list.index(roster) == addIndex:
+                for student in roster:
+                    if student == id:
+                        print("You are already registered in this course")
+                    else:
+                        print(student, id)
+                        if len(roster_list[addIndex]) < max_size_list[addIndex]:
+                            roster_list[addIndex].append(id)
+                            print("Course Added")
+                            return True
+                        elif max_size_list[addIndex] == len(roster_list[addIndex]):
+                            print("Class is already full")
+                            return True
+
+
+def drop_course(id, course_list, roster_list):
+    dropCourse = input("Enter course you want to drop: ")
+    if dropCourse not in course_list:
+        print("Course not found.")
+    else:
+        dropIndex = course_list.index(dropCourse)
+        for roster in roster_list:
+            if roster_list.index(roster) == dropIndex:
+                for student in roster:
+                    if student == id:
+                        roster.remove(student)
+                        print("Course dropped.")
+                        return True
+                    elif student != id:
+                        print("Student is not enrolled in this course.")
+
