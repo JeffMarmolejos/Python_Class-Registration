@@ -1,0 +1,37 @@
+import classModule
+
+
+def main():
+    student_list = [('1001', '111'), ('1002', '222'), ('1003', '333'), ('1004', '444')]
+    course_list = ['CSC101', 'CSC102', 'CSC103']
+    roster_list = [['1004', '1003'], ['1001'], ['1002']]
+    max_size_list = [3, 2, 1]
+
+    def login(id, student_list):
+        userPin = input("Enter PIN: ")
+        for student in student_list:
+            if student[0] == id and student[1] == userPin:
+                print("ID and PIN Verified", student[0], student[1])
+                return True
+            elif student == student_list[-1]:
+                print("ID or PIN is incorrect")
+                return False
+
+    id = input("Enter ID to log in, or 0 to quit: ")
+    while id != '0':
+        loginMan = login(id, student_list)
+        while loginMan:
+            pick = int(input("Enter 1 to add course, 2 to drop course, 3 to list courses, 0 to exit: "))
+            if pick == 1:
+                classModule.add_course(id, course_list, roster_list, max_size_list)
+            elif pick == 2:
+                classModule.drop_course(id, course_list, roster_list)
+            elif pick == 3:
+                classModule.list_courses(id, course_list, roster_list)
+            else:
+                print("Session ended.")
+                loginMan = False
+        id = input("Enter ID to log in, or 0 to quit: ")
+
+
+main()
